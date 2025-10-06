@@ -20,14 +20,41 @@ Las grabaciones se realizarón con micrófonos de teléfonos, cuidando que no hu
 
 ### Archivos de Audio
 
-https://github.com/user-attachments/assets/956391ed-0bbe-42d2-a7b2-071adc299d2c
+**Hombre 1:**
 
+https://github.com/user-attachments/assets/a866c77e-11af-423b-9f67-2854d0a0ca18
 
-Hombre 1:(LABORATORIO-3/HOMBRE1.wav) <br>
-Hombre 2: <br>
-Hombre 3: <br>
+ <br>
+ 
+**Hombre 2:**
 
+https://github.com/user-attachments/assets/fdc8c338-f863-41ed-a14e-bc15ec328939
 
+ <br>
+ 
+**Hombre 3:**
+
+https://github.com/user-attachments/assets/34fd4192-5114-49ed-964c-2844d8378798
+
+<br>
+
+**MUJER 1:**
+
+https://github.com/user-attachments/assets/83107f68-9953-410b-9e63-d19764eaf8b2
+
+ <br>
+ 
+**MUJER 2:** 
+
+https://github.com/user-attachments/assets/5339be7d-be98-4224-8050-b320b0845c84
+
+ <br>
+ 
+**MUJER 3:** 
+
+https://github.com/user-attachments/assets/fb98c625-09d1-40ed-a1fe-1a8601a72c8f
+
+<br>
 
 
 ## PARTE B
