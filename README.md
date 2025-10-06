@@ -17,7 +17,7 @@ en función del género. <br>
 En esta primera parte del laboratorio se realizó la grabación de las señales de voz. Obtuvimos las muestras de audio de diferentes personas (hombres y mujeres) pronunciando la misma frase corta ("Un simple eco es la prueba de que el aire guarda memorias, y que la música de la ciencia también puede acariciar el alma.”), garantizando que todas las grabaciones tuvieran las mismas condiciones de muestreo para permitir una comparación mas precisa.<br>
 
 Las grabaciones se realizarón con micrófonos de teléfonos, cuidando que no hubiera ruido externo ni saturación durante la captura. Cada archivo se guardó en formato .wav. Posteriormente, las señales fueron importadas a Python, donde se graficaron en el dominio del tiempo y se prepararon para el análisis espectral.<br>
-
+## Diagrama 
 <img width="600" height="400" alt="image" src="https://github.com/user-attachments/assets/e3bf8b67-7b65-41e7-adb7-0d5adea2ad00" /> <br>
 
 ### Archivos de Audio
@@ -153,8 +153,15 @@ print(df)
 ```
 ## PARTE B
 
+
 ## DESCRIPCIÓN 
 En esta parte del trabajo se realizó la medición del Jitter y el Shimmer a partir de grabaciones de voz masculina y femenina. Se aplicó un filtro pasa-banda butterworth para eliminar el ruido no deseado y luego se analizaron las señales para identificar los periodos de vibración y los picos de amplitud. Con estos datos se calcularon los valores absolutos y relativos de Jitter (variación en la frecuencia fundamental) y Shimmer (variación en la amplitud), utilizando las fórmulas correspondientes. Finalmente, se presentaron los resultados obtenidos para tres voces masculinas y tres femeninas.
+# Diagrama 
+<img width="1024" height="768" alt="(PARTE B)" src="https://github.com/user-attachments/assets/b2085e87-d0bc-498a-9197-98db7b7caeb1" />
+
+# PROCEDIMIENTO
+En la primera parte del código se realiza el montaje del entorno de trabajo en Google Colab y la definición de los archivos de voz que serán analizados. Mediante el comando drive.mount() se conecta Google Drive para acceder a las grabaciones almacenadas, estableciendo una ruta base donde se ubican los archivos .wav. A continuación, se crea un diccionario llamado archivos que contiene la información de cada muestra de voz —nombre del archivo, rango de frecuencias de paso y orden del filtro Butterworth— diferenciando entre voces masculinas y femeninas. Esta etapa es fundamental porque organiza los datos de entrada y define los parámetros iniciales con los que posteriormente se aplicará el filtrado y el análisis de Jitter y Shimmer.
+
 
 
 ## PARTE C  Analisis Comparativo
