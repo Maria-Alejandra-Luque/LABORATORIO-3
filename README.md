@@ -12,8 +12,8 @@ El propósito general fue comparar las diferencias entre voces de hombres y muje
 - Desarrollar conclusiones sobre el comportamiento espectral de la voz humana
 en función del género. <br>
 
-## PROCEDIMIENTO
-### PARTE A- Adquisición de las señales de voz
+# PROCEDIMIENTO
+## PARTE A- Adquisición de las señales de voz
 En esta primera parte del laboratorio se realizó la grabación de las señales de voz. Obtuvimos las muestras de audio de diferentes personas (hombres y mujeres) pronunciando la misma frase corta ("Un simple eco es la prueba de que el aire guarda memorias, y que la música de la ciencia también puede acariciar el alma.”), garantizando que todas las grabaciones tuvieran las mismas condiciones de muestreo para permitir una comparación mas precisa.<br>
 
 Las grabaciones se realizarón con micrófonos de teléfonos, cuidando que no hubiera ruido externo ni saturación durante la captura. Cada archivo se guardó en formato .wav. Posteriormente, las señales fueron importadas a Python, donde se graficaron en el dominio del tiempo y se prepararon para el análisis espectral.<br>
@@ -58,7 +58,7 @@ https://github.com/user-attachments/assets/fb98c625-09d1-40ed-a1fe-1a8601a72c8f
 
 <br>
 
-#### CODIGO
+### CODIGO
 
-### PARTE B
-### PARTE C
+## PARTE B
+## PARTE C
