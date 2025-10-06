@@ -193,10 +193,10 @@ archivos = {
 }
 ```
 ## Cálculos teóricos del filtro Butterworth pasa-banda 
-Para el diseño del filtro pasa-banda Butterworth utilizado en el procesamiento de las señales de voz, se partió de una frecuencia de muestreo de 48 kHz y una frecuencia de Nyquist de 24 kHz. Con base en las características de las voces humanas, se estableció un rango de paso de 80 Hz a 400 Hz para voces masculinas y de 150 Hz a 500 Hz para voces femeninas, con el fin de eliminar el ruido fuera de estas bandas. Se consideraron una atenuación en la banda de rechazo de 30 dB y un rizado en la banda de paso de 1 dB. Mediante la pre-warping de las frecuencias digitales a analógicas se obtuvieron las frecuencias angulares correspondientes, lo que permitió calcular la frecuencia central (ω₀) y el ancho de banda (B) para cada caso. Posteriormente, se realizó la transformación pasa-banda a prototipo pasa-bajo y se aplicaron las fórmulas de Butterworth para determinar el orden mínimo del filtro, obteniendo N = 7 para las voces masculinas y N = 12 para las femeninas. Finalmente, las frecuencias fueron normalizadas respecto a la frecuencia de Nyquist para ser usadas en la implementación digital del filtro en Python.
-
+Para el diseño del filtro pasa-banda Butterworth utilizado en el procesamiento de las señales de voz, se partió de una frecuencia de muestreo de 48 kHz y una frecuencia de Nyquist de 24 kHz. Con base en las características de las voces humanas, se estableció un rango de paso de 80 Hz a 400 Hz para voces masculinas y de 150 Hz a 500 Hz para voces femeninas, con el fin de eliminar el ruido fuera de estas bandas.
 <img width="1088" height="759" alt="image" src="https://github.com/user-attachments/assets/e362255c-ba1e-470d-9079-7ae9c1dc3865" />
 <img width="1088" height="732" alt="image" src="https://github.com/user-attachments/assets/c8bfcc1e-03e6-4677-bb9c-b4114ff455b5" />
+Se consideraron una atenuación en la banda de rechazo de 30 dB y un rizado en la banda de paso de 1 dB. Mediante la pre-warping de las frecuencias digitales a analógicas se obtuvieron las frecuencias angulares correspondientes, lo que permitió calcular la frecuencia central (ω₀) y el ancho de banda (B) para cada caso. Posteriormente, se realizó la transformación pasa-banda a prototipo pasa-bajo y se aplicaron las fórmulas de Butterworth para determinar el orden mínimo del filtro, obteniendo N = 7 para las voces masculinas y N = 12 para las femeninas. Finalmente, las frecuencias fueron normalizadas respecto a la frecuencia de Nyquist para ser usadas en la implementación digital del filtro en Python. 
 <img width="1093" height="752" alt="image" src="https://github.com/user-attachments/assets/c2e1ede7-98e4-42ca-855d-66771048fbd9" />
 <img width="648" height="723" alt="image" src="https://github.com/user-attachments/assets/2966278d-8e1d-4d23-8faa-9d55346c1702" />
 <img width="962" height="338" alt="image" src="https://github.com/user-attachments/assets/3d542daa-1102-4ca0-a413-910cd6a48151" />
@@ -208,18 +208,12 @@ Para el diseño del filtro pasa-banda Butterworth utilizado en el procesamiento 
 ## PARTE C  Analisis Comparativo
 En la ultima parte se compararon los parámetros acústicos obtenidos en las partes A y B para identificar las diferencias más relevantes entre voces masculinas y femeninas.
 Los parámetros analizados fueron:
-
-Frecuencia fundamental (Hz)
-
-Frecuencia media (Hz)
-
-Brillo (proporción de energía en frecuencias altas >1500 Hz)
-
-Intensidad (energía total)
-
-Jitter (variación de frecuencia)
-
-Shimmer (variación de amplitud)
+- Frecuencia fundamental (Hz)
+- Frecuencia media (Hz)
+- Brillo (proporción de energía en frecuencias altas >1500 Hz)
+- Intensidad (energía total)
+- Jitter (variación de frecuencia)
+- Shimmer (variación de amplitud)
 
 # Diagrama 
 <img width="1024" height="768" alt="Diseño sin título" src="https://github.com/user-attachments/assets/5686443e-b937-475a-8d7f-f7a0bed3a210" />
@@ -377,21 +371,14 @@ Esto muestra que las voces de los hombres tienen una frecuencia base más alta ,
 La diferencia puede deberse a la frase usada, tono de emisión o variaciones en la grabación.
 
 2. ¿Qué otras diferencias se notan en términos de brillo, media o intensidad?
-
 Frecuencia media: Las voces femeninas presentan un valor mayor (~4526 Hz) frente a los hombres (~4017 Hz). Esto indica una mayor concentración de energía en frecuencias altas, lo que se percibe como una voz más aguda y clara.
-
-Brillo: También es ligeramente superior en las mujeres (0.1099 frente a 0.1060), lo cual refuerza la presencia de armónicos altos en su espectro.
-
-Intensidad (Energía): Las voces masculinas tienen una energía promedio mayor (~4890 vs 4153), lo que puede relacionarse con una mayor proyección vocal.
-
+- Brillo: También es ligeramente superior en las mujeres (0.1099 frente a 0.1060), lo cual refuerza la presencia de armónicos altos en su espectro.
+- Intensidad (Energía): Las voces masculinas tienen una energía promedio mayor (~4890 vs 4153), lo que puede relacionarse con una mayor proyección vocal.
 En resumen, las mujeres muestran voces más agudas y brillantes, mientras que los hombres presentan voces más potentes o intensas.
 
 3. Conclusiones sobre el comportamiento de la voz en hombres y mujeres
-
 Las voces femeninas tienden a presentar una frecuencia media y brillo mayores, generando un timbre más agudo y con más contenido en altas frecuencias.
-
 Las voces masculinas presentan mayor energía e intensidad, lo que produce un sonido más fuerte y grave.
-
 Los parámetros de jitter y shimmer fueron ligeramente más altos en hombres, lo que sugiere una mayor variabilidad tanto en frecuencia como en amplitud.
 
 En general, las diferencias espectrales observadas son coherentes con las características anatómicas y fisiológicas de cada género: las cuerdas vocales masculinas son más largas y gruesas, lo que normalmente genera frecuencias fundamentales más bajas.
@@ -399,10 +386,8 @@ En general, las diferencias espectrales observadas son coherentes con las caract
 4. Importancia clínica del jitter y shimmer en el análisis de la voz
 
 El jitter y el shimmer son indicadores de la estabilidad vocal:
-
-El jitter mide la variación ciclo a ciclo de la frecuencia (irregularidad temporal).
-
-El shimmer mide la variación en la amplitud de los ciclos (irregularidad de intensidad).
+- El jitter mide la variación ciclo a ciclo de la frecuencia (irregularidad temporal).
+- El shimmer mide la variación en la amplitud de los ciclos (irregularidad de intensidad).
 
 En el ámbito clínico, valores elevados pueden indicar alteraciones en el control de la fonación, como disfonías, nódulos vocales, parálisis o fatiga de las cuerdas vocales.
 Por tanto, estos parámetros son fundamentales para el diagnóstico de patologías vocales, seguimiento de terapias y evaluación del rendimiento vocal en profesionales de la voz.
