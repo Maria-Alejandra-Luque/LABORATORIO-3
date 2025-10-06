@@ -102,6 +102,10 @@ def calcular_caracteristicas(data, samplerate):
     return f0, f_media, brillo, intensidad, freqs, magnitudes
 ```
 
+En este fragmento de código se leen los archivos de voz en formato .wav y se calcula su contenido en frecuencia usando la Transformada Rápida de Fourier (FFT). La función calcular_caracteristicas() toma como entrada los datos del audio y su frecuencia de muestreo, y obtiene diferentes parámetros de la señal. <br>
+Primero, genera el espectro de frecuencias y selecciona solo las componentes positivas. Luego, identifica el pico de mayor magnitud para determinar la frecuencia fundamental (F0). Posteriormente, calcula la frecuencia media o centroide espectral ponderando las magnitudes, y evalúa el brillo, que corresponde a la proporción de energía ubicada por encima de 1500 Hz. Finalmente, obtiene la intensidad como la energía total de la señal en el tiempo. Estos resultados permiten caracterizar cada voz y compararlas según sus propiedades acústicas.<br>
+
+
 ```
 resultados = []
 for ruta in rutas:
