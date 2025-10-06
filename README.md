@@ -152,4 +152,201 @@ print("\nTABLA DE RESULTADOS (Parte A):")
 print(df)
 ```
 ## PARTE B
-## PARTE C
+## PARTE C  Analisis Comparativo
+En la ultima parte se compararon los parámetros acústicos obtenidos en las partes A y B para identificar las diferencias más relevantes entre voces masculinas y femeninas.
+Los parámetros analizados fueron:
+
+Frecuencia fundamental (Hz)
+
+Frecuencia media (Hz)
+
+Brillo (proporción de energía en frecuencias altas >1500 Hz)
+
+Intensidad (energía total)
+
+Jitter (variación de frecuencia)
+
+Shimmer (variación de amplitud)
+
+# CODIGO
+```
+
+PARTE C: ANÁLISIS COMPARATIVO
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from difflib import get_close_matches
+
+
+ #1️ CARGAR RESULTADOS DE A Y B
+
+
+rutaA = "/content/drive/MyDrive/Colab Notebooks/resultados_parteA.csv"
+rutaB = "/content/drive/MyDrive/LaboratorioVoz/resultados_parteB/resultados_parteB.csv"
+
+parteA = pd.read_csv(rutaA)
+parteB = pd.read_csv(rutaB)
+
+
+# 2️ NORMALIZAR Y EMPAREJAR NOMBRES
+
+parteA["Archivo_limpio"] = (
+    parteA["Archivo"].str.lower().str.replace(".wav", "").str.replace(" ", "").str.strip()
+)
+parteB["Voz_limpio"] = (
+    parteB["Voz"].str.lower().str.replace(".wav", "").str.replace(" ", "").str.strip()
+)
+
+matches = {}
+for a in parteA["Archivo_limpio"]:
+    m = get_close_matches(a, parteB["Voz_limpio"], n=1, cutoff=0.5)
+    if m:
+        matches[a] = m[0]
+
+
+# 3️ UNIR LOS RESULTADOS DE A Y B
+
+
+merged_rows = []
+for i, row in parteA.iterrows():
+    a_clean = row["Archivo_limpio"]
+    if a_clean in matches:
+        b_match = parteB[parteB["Voz_limpio"] == matches[a_clean]].iloc[0]
+        merged_rows.append({
+            "Archivo": row["Archivo"],
+            "Frecuencia Fundamental (Hz)": row["Frecuencia Fundamental (Hz)"],
+            "Frecuencia Media (Hz)": row["Frecuencia Media (Hz)"],
+            "Brillo": row["Brillo"],
+            "Intensidad (Energía)": row["Intensidad (Energía)"],
+            "Jitter_abs (s)": b_match["Jitter_abs (s)"],
+            "Jitter_rel (%)": b_match["Jitter_rel (%)"],
+            "Shimmer_abs": b_match["Shimmer_abs"],
+            "Shimmer_rel (%)": b_match["Shimmer_rel (%)"]
+        })
+
+df = pd.DataFrame(merged_rows)
+
+
+# 4 CLASIFICAR POR GÉNERO
+
+
+df["Género"] = np.where(df["Archivo"].str.contains("mujer", case=False), "Mujer", "Hombre")
+
+
+# 5️ CALCULAR PROMEDIOS POR GÉNERO
+
+
+promedios = df.groupby("Género")[[
+    "Frecuencia Fundamental (Hz)",
+    "Frecuencia Media (Hz)",
+    "Brillo",
+    "Intensidad (Energía)",
+    "Jitter_rel (%)",
+    "Shimmer_rel (%)"
+]].mean().reset_index()
+
+print("\n===== TABLA COMBINADA =====")
+print(df)
+print("\n===== PROMEDIOS POR GÉNERO =====")
+print(promedios)
+
+
+# GRAFICAR COMPARACIONES
+
+
+fig, axes = plt.subplots(2, 3, figsize=(14, 7))
+fig.suptitle("Comparación de Parámetros de Voz entre Hombres y Mujeres", fontsize=14)
+
+# Títulos más claros y etiquetas mejoradas
+parametros = [
+    ("Frecuencia Fundamental (Hz)", "Frecuencia base (Hz)"),
+    ("Frecuencia Media (Hz)", "Frecuencia promedio (Hz)"),
+    ("Brillo", "Proporción de energía (>1500 Hz)"),
+    ("Intensidad (Energía)", "Nivel de energía total"),
+    ("Jitter_rel (%)", "Variación frecuencia (%)"),
+    ("Shimmer_rel (%)", "Variación amplitud (%)")
+]
+
+for ax, (param, ylabel) in zip(axes.flatten(), parametros):
+    ax.bar(promedios["Género"], promedios[param],
+           color=["blue", "fuchsia"], alpha=0.8)
+    ax.set_title(param)
+    ax.set_ylabel(ylabel)
+    ax.set_xlabel("Género")
+    ax.grid(True, alpha=0.3)
+
+plt.tight_layout(rect=[0, 0, 1, 0.95])
+plt.show()
+
+
+# 7️ GUARDAR RESULTADOS FINALES
+
+
+out_path = "/content/drive/MyDrive/LaboratorioVoz/resultados_parteC.csv"
+promedios.to_csv(out_path, index=False)
+print(f"\n Parte C completada. Resultados guardados en: {out_path}")
+```
+
+### DESCRIPCIÓN CODIGO
+
+Carga de resultados
+Se importaron los archivos CSV generados en las partes A y B con los parámetros espectrales e inestabilidades vocales.
+
+Normalización de nombres
+Se limpiaron los nombres de los archivos (.wav) para emparejar correctamente los registros de ambas partes.
+
+Unión de datos
+Se fusionaron ambos conjuntos (Parte A + Parte B) en un solo DataFrame con todos los parámetros de cada archivo de voz.
+
+Clasificación por género
+El código detecta si el nombre del archivo contiene “mujer” o “hombre” y asigna la categoría correspondiente.
+
+Cálculo de promedios
+Se agrupan los datos por género y se calculan los valores promedio para cada parámetro.
+
+Visualización
+Se generan gráficos comparativos (barras) que muestran de manera visual las diferencias entre hombres y mujeres.
+
+Exportación
+Los resultados finales se guardan en resultados_parteC.csv.
+
+
+### PREGUNTAS LABORATORIO
+Gracias a los resultados obtenidos , se pudo dar respuesta a las siguientes preguntas:
+1. ¿Qué diferencias se observan en la frecuencia fundamental?
+
+La frecuencia fundamental (F₀) fue mayor en las voces masculinas (≈454 Hz) que en las femeninas (≈314 Hz).
+Esto muestra que las voces de los hombres tienen una frecuencia base más alta , aunque normalmente se espera lo contrario (voces masculinas con menor F₀).
+La diferencia puede deberse a la frase usada, tono de emisión o variaciones en la grabación.
+
+2. ¿Qué otras diferencias se notan en términos de brillo, media o intensidad?
+
+Frecuencia media: Las voces femeninas presentan un valor mayor (~4526 Hz) frente a los hombres (~4017 Hz). Esto indica una mayor concentración de energía en frecuencias altas, lo que se percibe como una voz más aguda y clara.
+
+Brillo: También es ligeramente superior en las mujeres (0.1099 frente a 0.1060), lo cual refuerza la presencia de armónicos altos en su espectro.
+
+Intensidad (Energía): Las voces masculinas tienen una energía promedio mayor (~4890 vs 4153), lo que puede relacionarse con una mayor proyección vocal.
+
+En resumen, las mujeres muestran voces más agudas y brillantes, mientras que los hombres presentan voces más potentes o intensas.
+
+3. Conclusiones sobre el comportamiento de la voz en hombres y mujeres
+
+Las voces femeninas tienden a presentar una frecuencia media y brillo mayores, generando un timbre más agudo y con más contenido en altas frecuencias.
+
+Las voces masculinas presentan mayor energía e intensidad, lo que produce un sonido más fuerte y grave.
+
+Los parámetros de jitter y shimmer fueron ligeramente más altos en hombres, lo que sugiere una mayor variabilidad tanto en frecuencia como en amplitud.
+
+En general, las diferencias espectrales observadas son coherentes con las características anatómicas y fisiológicas de cada género: las cuerdas vocales masculinas son más largas y gruesas, lo que normalmente genera frecuencias fundamentales más bajas.
+
+4. Importancia clínica del jitter y shimmer en el análisis de la voz
+
+El jitter y el shimmer son indicadores de la estabilidad vocal:
+
+El jitter mide la variación ciclo a ciclo de la frecuencia (irregularidad temporal).
+
+El shimmer mide la variación en la amplitud de los ciclos (irregularidad de intensidad).
+
+En el ámbito clínico, valores elevados pueden indicar alteraciones en el control de la fonación, como disfonías, nódulos vocales, parálisis o fatiga de las cuerdas vocales.
+Por tanto, estos parámetros son fundamentales para el diagnóstico de patologías vocales, seguimiento de terapias y evaluación del rendimiento vocal en profesionales de la voz.
