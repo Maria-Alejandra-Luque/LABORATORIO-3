@@ -1,4 +1,4 @@
-# ANÁLISIS ESPECTRAL DE LA VOZ
+# LABORATORIO- 3 ANÁLISIS ESPECTRAL DE LA VOZ
 
 ## DESCRIPCIÓN 
 En este repositorio analizaremos la practica desarollada que se titula **"Análisis espectral de la voz"**, donde buscamos entender las principales características de la voz humana desde el punto de vista del procesamiento digital de señales. Haciendo uso de varias grabaciones de voces masculinas y femeninas y se trabajó con ellas en Python, aplicando herramientas como la Transformada de Fourier para observar su comportamiento en el dominio de la frecuencia.
@@ -14,7 +14,7 @@ El propósito general fue comparar las diferencias entre voces de hombres y muje
 en función del género. <br>
 
 # PROCEDIMIENTO
-## PARTE A- Adquisición de las señales de voz
+## PARTE A Adquisición de las señales de voz
 En esta primera parte del laboratorio se realizó la grabación de las señales de voz. Obtuvimos las muestras de audio de diferentes personas (hombres y mujeres) pronunciando la misma frase corta ("Un simple eco es la prueba de que el aire guarda memorias, y que la música de la ciencia también puede acariciar el alma.”), garantizando que todas las grabaciones tuvieran las mismas condiciones de muestreo para permitir una comparación mas precisa.<br>
 
 Las grabaciones se realizarón con micrófonos de teléfonos, cuidando que no hubiera ruido externo ni saturación durante la captura. Cada archivo se guardó en formato .wav. Posteriormente, las señales fueron importadas a Python, donde se graficaron en el dominio del tiempo y se prepararon para el análisis espectral.<br>
@@ -156,7 +156,7 @@ df = pd.DataFrame(resultados)
 print("\nTABLA DE RESULTADOS (Parte A):")
 print(df)
 ```
-## PARTE B
+## PARTE B Medición de Jitter y Shimmer 
 
 
 # DESCRIPCIÓN 
