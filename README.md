@@ -86,7 +86,6 @@ def calcular_caracteristicas(data, samplerate):
     freqs = freqs[idx]
     magnitudes = np.abs(fft_data[idx])
 
-    # ---- Características ----
     # Frecuencia fundamental = pico máximo (excluyendo DC)
     f0 = freqs[np.argmax(magnitudes[1:]) + 1]
 
@@ -100,8 +99,57 @@ def calcular_caracteristicas(data, samplerate):
 
     # Intensidad (energía total en el tiempo)
     intensidad = np.sum(data**2)
-
     return f0, f_media, brillo, intensidad, freqs, magnitudes
+```
+
+```
+resultados = []
+for ruta in rutas:
+    # Cargar audio
+    data, samplerate = sf.read(ruta)
+
+    # Si es estéreo -> a mono
+    if len(data.shape) > 1:
+        data = data.mean(axis=1)
+
+    # Tiempo
+    tiempo = np.linspace(0, len(data)/samplerate, num=len(data))
+ # Calcular características
+    f0, f_media, brillo, intensidad, freqs, magnitudes = calcular_caracteristicas(data, samplerate)
+
+    # Guardar resultados en tabla
+    resultados.append({
+        "Archivo": os.path.basename(ruta),
+        "Frecuencia Fundamental (Hz)": f0,
+        "Frecuencia Media (Hz)": f_media,
+        "Brillo": brillo,
+        "Intensidad (Energía)": intensidad
+    })
+
+    # Graficar señal + espectro
+    plt.figure(figsize=(14,5))
+
+    # Señal en el tiempo
+    plt.subplot(1,2,1)
+    plt.plot(tiempo, data, color="fuchsia")
+    plt.title(f"Señal en el tiempo - {os.path.basename(ruta)}")
+    plt.xlabel("Tiempo [s]")
+    plt.ylabel("Amplitud")
+
+    # Espectro
+    plt.subplot(1,2,2)
+    plt.plot(freqs, magnitudes, color="fuchsia")
+    plt.title(f"Espectro de frecuencia - {os.path.basename(ruta)}")
+    plt.xlabel("Frecuencia [Hz]")
+    plt.ylabel("Magnitud")
+    plt.xlim(0, 2000)  # límite a 2 kHz
+
+    plt.tight_layout()
+    plt.show()
+
+df = pd.DataFrame(resultados)
+print("\nTABLA DE RESULTADOS (Parte A):")
+print(df)
 ```
 ## PARTE B
 ## PARTE C
