@@ -18,7 +18,7 @@ En esta primera parte del laboratorio se realizó la grabación de las señales 
 
 Las grabaciones se realizarón con micrófonos de teléfonos, cuidando que no hubiera ruido externo ni saturación durante la captura. Cada archivo se guardó en formato .wav. Posteriormente, las señales fueron importadas a Python, donde se graficaron en el dominio del tiempo y se prepararon para el análisis espectral.<br>
 
-<img width="220" height="194" alt="image" src="https://github.com/user-attachments/assets/e3bf8b67-7b65-41e7-adb7-0d5adea2ad00" /> <br>
+<img width="650" height="194" alt="image" src="https://github.com/user-attachments/assets/e3bf8b67-7b65-41e7-adb7-0d5adea2ad00" /> <br>
 
 ### Archivos de Audio
 
