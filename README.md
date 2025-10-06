@@ -166,7 +166,7 @@ En esta parte del trabajo se realizó la medición del Jitter y el Shimmer a par
 <img width="1024" height="768" alt="(PARTE B)" src="https://github.com/user-attachments/assets/b2085e87-d0bc-498a-9197-98db7b7caeb1" />
 
 # PROCEDIMIENTO
-En la primera parte del código se realiza el montaje del entorno de trabajo en Google Colab y la definición de los archivos de voz que serán analizados. Mediante el comando drive.mount() se conecta Google Drive para acceder a las grabaciones almacenadas, estableciendo una ruta base donde se ubican los archivos .wav. A continuación, se crea un diccionario llamado archivos que contiene la información de cada muestra de voz nombre del archivo, rango de frecuencias de paso y orden del filtro Butterworth— diferenciando entre voces masculinas y femeninas. Esta etapa es fundamental porque organiza los datos de entrada y define los parámetros iniciales con los que posteriormente se aplicará el filtrado y el análisis de Jitter y Shimmer.
+En la primera parte del código se realiza el montaje del entorno de trabajo en Google Colab y la definición de los archivos de voz que serán analizados. Mediante el comando drive.mount() se conecta Google Drive para acceder a las grabaciones almacenadas, estableciendo una ruta base donde se ubican los archivos .wav. A continuación, se crea librería llamado archivos que contiene la información de cada muestra de voz nombre del archivo, rango de frecuencias de paso y orden del filtro Butterworth diferenciando entre voces masculinas y femeninas. Esta etapa es fundamental porque organiza los datos de entrada y define los parámetros iniciales con los que posteriormente se aplicará el filtrado y el análisis de Jitter y Shimmer.
 
 # Código
 ```
