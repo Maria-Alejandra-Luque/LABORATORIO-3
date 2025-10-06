@@ -58,6 +58,7 @@ https://github.com/user-attachments/assets/fb98c625-09d1-40ed-a1fe-1a8601a72c8f
 
 <br>
 
+#### CODIGO
 
-## PARTE B
-## PARTE C
+### PARTE B
+### PARTE C
