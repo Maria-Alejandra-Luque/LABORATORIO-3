@@ -166,6 +166,33 @@ En esta parte del trabajo se realizó la medición del Jitter y el Shimmer a par
 # PROCEDIMIENTO
 En la primera parte del código se realiza el montaje del entorno de trabajo en Google Colab y la definición de los archivos de voz que serán analizados. Mediante el comando drive.mount() se conecta Google Drive para acceder a las grabaciones almacenadas, estableciendo una ruta base donde se ubican los archivos .wav. A continuación, se crea un diccionario llamado archivos que contiene la información de cada muestra de voz —nombre del archivo, rango de frecuencias de paso y orden del filtro Butterworth— diferenciando entre voces masculinas y femeninas. Esta etapa es fundamental porque organiza los datos de entrada y define los parámetros iniciales con los que posteriormente se aplicará el filtrado y el análisis de Jitter y Shimmer.
 
+```
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.io import wavfile
+from scipy.signal import butter, sosfiltfilt, find_peaks, hilbert
+from google.colab import drive
+import os
+
+
+# 1. MONTAJE DEL DRIVE Y DEFINICIÓN DE ARCHIVOS
+
+
+drive.mount('/content/drive', force_remount=True)
+base_path = "/content/drive/MyDrive/Colab Notebooks" 
+
+# Archivos de voz (3 hombres y 3 mujeres)
+archivos = {
+    "Hombre1": ("Hombre 1 .wav", [80, 400], 7),
+    "Hombre2": ("Hombre 2.wav", [80, 400], 7),
+    "Hombre3": ("Hombre 3 .wav", [80, 400], 7),
+    "Mujer1":  ("Mujer 1.wav", [150, 500], 12),
+    "Mujer2":  ("Mujer 2.wav", [150, 500], 12),
+    "Mujer3":  ("Mujer 3.wav", [150, 500], 12),
+}
+```
+
 
 
 ## PARTE C  Analisis Comparativo
