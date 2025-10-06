@@ -152,6 +152,10 @@ print("\nTABLA DE RESULTADOS (Parte A):")
 print(df)
 ```
 ## PARTE B
+
+## DESCRIPCIÓN 
+En esta parte del trabajo se realizó la medición del Jitter y el Shimmer a partir de grabaciones de voz masculina y femenina. Se aplicó un filtro pasa-banda para eliminar el ruido no deseado y luego se analizaron las señales para identificar los periodos de vibración y los picos de amplitud. Con estos datos se calcularon los valores absolutos y relativos de Jitter (variación en la frecuencia fundamental) y Shimmer (variación en la amplitud), utilizando las fórmulas correspondientes. Finalmente, se presentaron los resultados obtenidos para tres voces masculinas y tres femeninas.
+
 ## PARTE C  Analisis Comparativo
 En la ultima parte se compararon los parámetros acústicos obtenidos en las partes A y B para identificar las diferencias más relevantes entre voces masculinas y femeninas.
 Los parámetros analizados fueron:
