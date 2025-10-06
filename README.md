@@ -60,5 +60,48 @@ https://github.com/user-attachments/assets/fb98c625-09d1-40ed-a1fe-1a8601a72c8f
 
 ### CODIGO
 
+```
+import soundfile as sf
+import matplotlib.pyplot as plt
+import numpy as np
+import glob
+import os
+import pandas as pd
+carpeta = "/content/drive/MyDrive/Colab Notebooks"
+rutas = glob.glob(os.path.join(carpeta, "*.wav"))
+print("Archivos encontrados:")
+for r in rutas:
+    print(r)
+
+def calcular_caracteristicas(data, samplerate):
+    """ Calcula las características pedidas: F0, Fmedia, Brillo, Energía """
+
+    # FFT
+    N = len(data)
+    fft_data = np.fft.fft(data)
+    freqs = np.fft.fftfreq(N, 1/samplerate)
+
+    # Solo frecuencias positivas
+    idx = np.where(freqs > 0)
+    freqs = freqs[idx]
+    magnitudes = np.abs(fft_data[idx])
+
+    # ---- Características ----
+    # Frecuencia fundamental = pico máximo (excluyendo DC)
+    f0 = freqs[np.argmax(magnitudes[1:]) + 1]
+
+    # Frecuencia media (ponderada por magnitud)
+    f_media = np.sum(freqs * magnitudes) / np.sum(magnitudes)
+
+    # Brillo: proporción de energía > 1500 Hz
+    energia_total = np.sum(magnitudes**2)
+    energia_alta = np.sum(magnitudes[freqs > 1500]**2)
+    brillo = energia_alta / energia_total if energia_total > 0 else 0
+
+    # Intensidad (energía total en el tiempo)
+    intensidad = np.sum(data**2)
+
+    return f0, f_media, brillo, intensidad, freqs, magnitudes
+```
 ## PARTE B
 ## PARTE C
