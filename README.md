@@ -156,6 +156,7 @@ df = pd.DataFrame(resultados)
 print("\nTABLA DE RESULTADOS (Parte A):")
 print(df)
 ```
+
 ## PARTE B Medición de Jitter y Shimmer 
 
 
