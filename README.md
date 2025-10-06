@@ -192,7 +192,7 @@ archivos = {
     "Mujer3":  ("Mujer 3.wav", [150, 500], 12),
 }
 ```
-
+## Cálculos teóricos del filtro Butterworth pasa-banda 
 
 
 ## PARTE C  Analisis Comparativo
@@ -211,6 +211,7 @@ Jitter (variación de frecuencia)
 
 Shimmer (variación de amplitud)
 
+# Diagrama 
 <img width="1024" height="768" alt="Diseño sin título" src="https://github.com/user-attachments/assets/5686443e-b937-475a-8d7f-f7a0bed3a210" />
 
 # CODIGO
