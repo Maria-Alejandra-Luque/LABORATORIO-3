@@ -193,6 +193,16 @@ archivos = {
 }
 ```
 ## Cálculos teóricos del filtro Butterworth pasa-banda 
+Para el diseño del filtro pasa-banda Butterworth utilizado en el procesamiento de las señales de voz, se partió de una frecuencia de muestreo de 48 kHz y una frecuencia de Nyquist de 24 kHz. Con base en las características de las voces humanas, se estableció un rango de paso de 80 Hz a 400 Hz para voces masculinas y de 150 Hz a 500 Hz para voces femeninas, con el fin de eliminar el ruido fuera de estas bandas. Se consideraron una atenuación en la banda de rechazo de 30 dB y un rizado en la banda de paso de 1 dB. Mediante la pre-warping de las frecuencias digitales a analógicas se obtuvieron las frecuencias angulares correspondientes, lo que permitió calcular la frecuencia central (ω₀) y el ancho de banda (B) para cada caso. Posteriormente, se realizó la transformación pasa-banda a prototipo pasa-bajo y se aplicaron las fórmulas de Butterworth para determinar el orden mínimo del filtro, obteniendo N = 7 para las voces masculinas y N = 12 para las femeninas. Finalmente, las frecuencias fueron normalizadas respecto a la frecuencia de Nyquist para ser usadas en la implementación digital del filtro en Python.
+
+<img width="1088" height="759" alt="image" src="https://github.com/user-attachments/assets/e362255c-ba1e-470d-9079-7ae9c1dc3865" />
+<img width="1088" height="732" alt="image" src="https://github.com/user-attachments/assets/c8bfcc1e-03e6-4677-bb9c-b4114ff455b5" />
+<img width="1093" height="752" alt="image" src="https://github.com/user-attachments/assets/c2e1ede7-98e4-42ca-855d-66771048fbd9" />
+<img width="648" height="723" alt="image" src="https://github.com/user-attachments/assets/2966278d-8e1d-4d23-8faa-9d55346c1702" />
+<img width="962" height="338" alt="image" src="https://github.com/user-attachments/assets/3d542daa-1102-4ca0-a413-910cd6a48151" />
+
+
+
 
 
 ## PARTE C  Analisis Comparativo
