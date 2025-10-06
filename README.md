@@ -165,7 +165,7 @@ En esta parte del trabajo se realizó la medición del Jitter y el Shimmer a par
 
 # PROCEDIMIENTO
 En la primera parte del código se realiza el montaje del entorno de trabajo en Google Colab y la definición de los archivos de voz que serán analizados. Mediante el comando drive.mount() se conecta Google Drive para acceder a las grabaciones almacenadas, estableciendo una ruta base donde se ubican los archivos .wav. A continuación, se crea un diccionario llamado archivos que contiene la información de cada muestra de voz —nombre del archivo, rango de frecuencias de paso y orden del filtro Butterworth— diferenciando entre voces masculinas y femeninas. Esta etapa es fundamental porque organiza los datos de entrada y define los parámetros iniciales con los que posteriormente se aplicará el filtrado y el análisis de Jitter y Shimmer.
-
+#
 ```
 import numpy as np
 import pandas as pd
@@ -204,7 +204,89 @@ Se consideraron una atenuación en la banda de rechazo de 30 dB y un rizado en l
 <img width="648" height="723" alt="image" src="https://github.com/user-attachments/assets/2966278d-8e1d-4d23-8faa-9d55346c1702" />
 <img width="962" height="338" alt="image" src="https://github.com/user-attachments/assets/3d542daa-1102-4ca0-a413-910cd6a48151" />
 
+# Código
+En esta parte del código se define primero la función butter_bandpass(), encargada de diseñar un filtro pasa-banda Butterworth a partir de los parámetros de muestreo, frecuencias de corte y orden del filtro. La función normaliza las frecuencias con respecto a la frecuencia de Nyquist y devuelve los coeficientes del filtro en formato “sos” (secciones de segundo orden), ideal para lograr estabilidad numérica.
+```
+ 2. DISEÑO DEL FILTRO PASA–BANDA BUTTERWORTH
 
+def butter_bandpass(fs, lowcut, highcut, order):
+    nyq = fs / 2
+    if highcut >= nyq:
+        highcut = 0.99 * nyq
+    low, high = lowcut / nyq, highcut / nyq
+    sos = butter(order, [low, high], btype='band', output='sos')
+    return sos
+```
+Luego, se implementa la función calc_jitter_shimmer(), que detecta los picos de la señal filtrada y, a partir de ellos, calcula el Jitter (variación en los periodos de vibración) y el Shimmer (variación en la amplitud). Si la señal tiene menos de tres picos válidos, se devuelven valores NaN. Esta función es fundamental para cuantificar la estabilidad temporal y de amplitud de la voz.
+```
+ 3. FUNCIÓN PARA CALCULAR JITTER Y SHIMMER
+
+
+def calc_jitter_shimmer(signal, fs):
+    peaks, _ = find_peaks(np.abs(signal), height=0.2 * np.max(np.abs(signal)))
+    if len(peaks) < 3:
+        return np.nan, np.nan, np.nan, np.nan, None
+
+    # Periodos
+    Ti = np.diff(peaks) / fs
+    Ti_mean = np.mean(Ti)
+    jitter_abs = np.mean(np.abs(np.diff(Ti)))
+    jitter_rel = (jitter_abs / Ti_mean) * 100
+
+    # Amplitudes
+    envelope = np.abs(hilbert(signal))
+    Ai = envelope[peaks]
+    Ai_mean = np.mean(Ai)
+    shimmer_abs = np.mean(np.abs(np.diff(Ai)))
+    shimmer_rel = (shimmer_abs / Ai_mean) * 100
+
+    return jitter_abs, jitter_rel, shimmer_abs, shimmer_rel, peaks
+```
+En esta sección se realiza el procesamiento automático de todas las grabaciones de voz. Primero se crea una carpeta para guardar los resultados y se recorren los archivos definidos previamente en el diccionario. Para cada grabación, el código verifica su existencia, la carga y convierte la señal a formato flotante, normalizándola entre −1 y 1. Si el archivo contiene más de un canal, se obtiene una señal mono promediando los canales. Luego, se aplica el filtro Butterworth pasa-banda con los parámetros correspondientes a cada voz (masculina o femenina) y se obtiene la señal filtrada. A partir de esta, se calculan los valores de Jitter y Shimmer mediante la función calc_jitter_shimmer(), y los resultados se almacenan en una lista. 
+```
+#  4. PROCESAMIENTO DE LAS GRABACIONES
+
+
+resultados = []
+os.makedirs("/content/drive/MyDrive/LaboratorioVoz/resultados_parteB", exist_ok=True)
+
+for nombre, (archivo, rango, orden) in archivos.items():
+    path = os.path.join(base_path, archivo)
+
+    if not os.path.exists(path):
+        print(f"No se encontró {archivo}")
+        resultados.append([nombre, np.nan, np.nan, np.nan, np.nan])
+        continue
+
+    fs, sig = wavfile.read(path)
+    if sig.ndim > 1:
+        sig = sig.mean(axis=1)
+    sig = sig.astype(float)
+    sig /= np.max(np.abs(sig))
+
+    sos = butter_bandpass(fs, rango[0], rango[1], orden)
+    filtrada = sosfiltfilt(sos, sig)
+
+    jit_abs, jit_rel, shim_abs, shim_rel, peaks = calc_jitter_shimmer(filtrada, fs)
+    resultados.append([nombre, jit_abs, jit_rel, shim_abs, shim_rel])
+
+    if peaks is not None:
+        t = np.arange(len(filtrada)) / fs
+        plt.figure(figsize=(10,3))
+        plt.plot(t, filtrada, label="Señal filtrada")
+        plt.plot(peaks/fs, filtrada[peaks], "r.", label="Picos")
+        plt.title(f"{nombre} - Señal filtrada y detección de picos")
+        plt.xlabel("Tiempo (s)")
+        plt.legend()
+        plt.tight_layout()
+        plt.savefig(f"/content/drive/MyDrive/LaboratorioVoz/resultados_parteB/{nombre}_filtrada_picos.png")
+        plt.close()
+
+```
+Finalmente, se genera una tabla donde se visualiza la señal filtrada junto con los picos detectados, que se guarda automáticamente en el directorio de resultados.Este paso permite conservar y analizar los datos de manera estructurada, facilitando su comparación y procesamiento en etapas posteriores.
+# Tabala de resultados 
+
+<img width="633" height="186" alt="image" src="https://github.com/user-attachments/assets/bea12e9c-128f-4c4f-a1b9-38b25a61c112" />
 
 
 
