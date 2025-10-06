@@ -173,6 +173,8 @@ Jitter (variación de frecuencia)
 
 Shimmer (variación de amplitud)
 
+<img width="1024" height="768" alt="Diseño sin título" src="https://github.com/user-attachments/assets/5686443e-b937-475a-8d7f-f7a0bed3a210" />
+
 # CODIGO
 ```
 
